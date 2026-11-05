@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PageTurn | Library Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>document.documentElement.dataset.theme = localStorage.getItem("pageturn-theme") || "light";</script>
+</head>
+<body>
+    <aside class="sidebar">
+        <a class="brand" href="{{ url_for('index') }}">
+            <span class="brand-icon">P</span>
+            <span>PageTurn<small>LIBRARY SYSTEM</small></span>
+        </a>
+
+        <p class="nav-label">WORKSPACE</p>
+        <nav class="side-nav">
+            <a href="#dashboard" class="nav-link active"><span>⌂</span> Dashboard</a>
+            <a href="#analytics" class="nav-link"><span>▥</span> Analytics</a>
+            <a href="#books" class="nav-link"><span>▤</span> Book collection</a>
+            <a href="#students" class="nav-link"><span>♙</span> Students</a>
+            <a href="#issued-books" class="nav-link"><span>▣</span> Issued books</a>
+            <a href="#issue-return" class="nav-link"><span>↔</span> Issue & return</a>
+            <a href="#add-book" class="nav-link"><span>＋</span> Add a book</a>
+        </nav>
+
+        <div class="sidebar-note">
+            <div class="note-icon">✦</div>
+            <strong>A little reading goes a long way.</strong>
+            <p>Keep your next great read close.</p>
+        </div>
+        <div class="sidebar-footer">PageTurn · Local library</div>
+    </aside>
+
+    {% if returned_details %}
+    <div class="return-modal-backdrop" id="returnModal" role="dialog" aria-modal="true" aria-labelledby="returnModalTitle">
+        <div class="return-modal">
+            <button type="button" class="return-modal-close" id="closeReturnModal" aria-label="Close popup">×</button>
+            <div class="return-modal-icon">✓</div>
+            <p class="eyebrow">BOOK RETURN SUMMARY</p>
+            <h2 id="returnModalTitle">Book returned successfully</h2>
+            <p class="return-modal-status">{% if returned_details.fee|int > 0 %}Late return — fine applicable{% else %}Return completed — no fine{% endif %}</p>
+            <div class="return-details-grid">
+                <div><span>Book name</span><strong>{{ returned_details.book }}</strong></div>
+                <div><span>Student name</span><strong>{{ returned_details.student }}</strong></div>
+                <div><span>Issue date</span><strong>{{ returned_details.issue_date }}</strong></div>
+                <div><span>Return date</span><strong>{{ returned_details.return_date }}</strong></div>
+                <div><span>Loan duration</span><strong>{{ returned_details.days }} days</strong></div>
+                <div><span>Late days</span><strong>{{ returned_details.late_days }} days</strong></div>
+            </div>
+            <div class="return-fine-total"><span>Total fine</span><strong>₹{{ returned_details.fee }}</strong><small>₹5 per day after the 14-day loan period</small></div>
+            <button type="button" class="primary-button full-width" id="closeReturnModalButton">Done</button>
+        </div>
+    </div>
+    {% endif %}
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">LIBRARY OVERVIEW</p>
+                <h1>Good day, librarian <span>✦</span></h1>
+                <p class="muted">Manage your books, readers, and daily lending activity.</p>
+            </div>
+            <div class="topbar-actions"><button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">🌙 Dark mode</button><a class="primary-button" href="#add-book">＋ Add new book</a></div>
+        </header>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flash-stack">
+              {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <section id="dashboard" class="section-block">
+            <div class="section-heading">
+                <div><p class="eyebrow">AT A GLANCE</p><h2>Your library today</h2></div>
+                <span class="date-chip">Today · {{ today }}</span>
+            </div>
+            <div class="stats-grid">
+                <article class="stat-card stat-purple">
+                    <div class="stat-top"><span>Total books</span><span class="stat-icon">▤</span></div>
+                    <strong>{{ stats.total_books }}</strong>
+                    <p>Titles in your collection</p>
+                </article>
+                <article class="stat-card stat-green">
+                    <div class="stat-top"><span>Available</span><span class="stat-icon">✓</span></div>
+                    <strong>{{ stats.available_books }}</strong>
+                    <p>Ready to be borrowed</p>
+                </article>
+                <article class="stat-card stat-orange">
+                    <div class="stat-top"><span>Currently issued</span><span class="stat-icon">↗</span></div>
+                    <strong>{{ stats.issued_books }}</strong>
+                    <p>Books with readers</p>
+                </article>
+                <article class="stat-card stat-blue">
+                    <div class="stat-top"><span>Students</span><span class="stat-icon">♙</span></div>
+                    <strong>{{ stats.total_students }}</strong>
+                    <p>Registered readers</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="analytics" class="section-block">
+            <div class="section-heading">
+                <div><p class="eyebrow">LIBRARY INSIGHTS</p><h2>Library analytics</h2></div>
+                <span class="result-count">Live data from your library</span>
+            </div>
+            <div class="charts-grid">
+                <article class="chart-card">
+                    <div class="chart-heading"><div><h3>Collection overview</h3><p>Compare books and registered students</p></div></div>
+                    <div class="chart-canvas"><canvas id="overviewChart" aria-label="Bar graph of total books, available books, issued books and students"></canvas></div>
+                </article>
+                <article class="chart-card">
+                    <div class="chart-heading"><div><h3>Book availability</h3><p>Available vs currently issued</p></div></div>
+                    <div class="chart-canvas doughnut-wrap"><canvas id="availabilityChart" aria-label="Doughnut graph of available and issued books"></canvas></div>
+                    <div class="chart-legend"><span><i class="legend-dot available-dot"></i>Available <strong>{{ stats.available_books }}</strong></span><span><i class="legend-dot issued-dot"></i>Issued <strong>{{ stats.issued_books }}</strong></span></div>
+                </article>
+            </div>
+        </section>
+
+        <section id="books" class="section-block">
+            <div class="section-heading">
+                <div><p class="eyebrow">YOUR COLLECTION</p><h2>Book collection</h2></div>
+                <span class="result-count">{{ books|length }} result(s)</span>
+            </div>
+
+            <form class="filter-bar" method="GET" action="{{ url_for('index') }}#books">
+                <label class="search-box">
+                    <span>⌕</span>
+                    <input type="search" name="search" value="{{ search }}" placeholder="Search title, author, ID, category...">
+                </label>
+                <select name="category" aria-label="Filter by category">
+                    <option value="All" {% if selected_category == 'All' %}selected{% endif %}>All categories</option>
+                    {% for category in categories %}
+                    <option value="{{ category }}" {% if selected_category == category %}selected{% endif %}>{{ category }}</option>
+                    {% endfor %}
+                </select>
+                <select name="status" aria-label="Filter by availability">
+                    <option value="All" {% if selected_status == 'All' %}selected{% endif %}>All statuses</option>
+                    <option value="Available" {% if selected_status == 'Available' %}selected{% endif %}>Available</option>
+                    <option value="Issued" {% if selected_status == 'Issued' %}selected{% endif %}>Issued</option>
+                </select>
+                <button class="primary-button" type="submit">Search</button>
+                <a class="clear-link" href="{{ url_for('index') }}#books">Clear</a>
+            </form>
+
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th>Book</th><th>Book ID</th><th>Category</th><th>Author</th><th>Status</th><th>Issued count</th><th>Actions</th></tr></thead>
+                    <tbody>
+                    {% for book in books %}
+                        <tr>
+                            <td><div class="book-cell"><span class="book-cover">{{ book.title[:1]|upper }}</span><strong>{{ book.title }}</strong></div></td>
+                            <td><span class="id-pill">{{ book.book_id }}</span></td>
+                            <td><span class="category-pill">{{ book.category }}</span></td>
+                            <td>{{ book.author }}</td>
+                            <td>{% if book.available %}<span class="status available">Available</span>{% else %}<span class="status issued">Issued</span>{% endif %}</td>
+                            <td>{{ book.issued_count }}</td>
+                            <td><form method="POST" action="{{ url_for('delete_book', book_id=book.book_id) }}" onsubmit="return confirm('Delete book &quot;{{ book.title|e }}&quot;? This cannot be undone.')"><button class="icon-button danger" type="submit" {% if not book.available %}title="Issued books cannot be deleted"{% else %}title="Delete book"{% endif %}>Delete</button></form></td>
+                        </tr>
+                    {% else %}
+                        <tr><td colspan="7" class="empty-state">No books match your search. Try another keyword or category.</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <div class="two-column">
+            <section id="add-book" class="panel section-block">
+                <div class="section-heading">
+                    <div><p class="eyebrow">GROW THE SHELF</p><h2>Add a book</h2></div><span class="panel-icon">＋</span>
+                </div>
+                <form class="form-grid" id="addBookForm" method="POST" action="{{ url_for('add_book') }}" novalidate>
+                    <label>Book ID<input name="book_id" placeholder="e.g. 101" inputmode="numeric" pattern="[0-9]+" title="Book ID must contain numbers only." required><small class="field-error" aria-live="polite"></small></label>
+                    <label>Book title<input name="title" placeholder="Enter book title" minlength="2" pattern="[^\W\d_]+([ '-][^\W\d_]+)*" title="Book title must contain letters only; spaces, apostrophes and hyphens are allowed." required data-title-validation="true"><small class="field-error" aria-live="polite"></small></label>
+                    <label>Author<input name="author" placeholder="e.g. J K Rowling" pattern="[^\W\d_]+([ '-][^\W\d_]+)*" title="Author name must contain letters only; numbers and symbols are not allowed." required><small class="field-error" aria-live="polite"></small></label>
+                    <label>Category
+                        <select name="category" required>
+                            {% for category in categories %}<option value="{{ category }}">{{ category }}</option>{% endfor %}
+                        </select>
+                    </label>
+                    <button class="primary-button full-width" type="submit">＋ Save book</button>
+                </form>
+            </section>
+
+            <section id="students" class="panel section-block">
+                <div class="section-heading">
+                    <div><p class="eyebrow">READER DIRECTORY</p><h2>Students</h2></div><span class="panel-icon">♙</span>
+                </div>
+                <form class="student-form" id="addStudentForm" method="POST" action="{{ url_for('add_student') }}" novalidate>
+                    <label class="student-field"><input name="student_id" placeholder="Student ID (letters/numbers)" pattern="[A-Za-z0-9]+" title="Student ID must contain letters and numbers only." required><small class="field-error" aria-live="polite"></small></label>
+                    <label class="student-field"><input name="name" placeholder="Student full name" pattern="[^\W\d_]+([ '-][^\W\d_]+)*" title="Use letters, spaces, apostrophes or hyphens only." required><small class="field-error" aria-live="polite"></small></label>
+                    <button class="primary-button" type="submit">Add student</button>
+                </form>
+                <div class="student-list">
+                    {% for student in students %}
+                    <div class="student-row">
+                        <span class="avatar">{{ student.name[:1]|upper }}</span>
+                        <div class="student-info"><strong>{{ student.name }}</strong><small>ID: {{ student.student_id }}</small></div>
+                        <form method="POST" action="{{ url_for('delete_student', student_id=student.student_id) }}" onsubmit="return confirm('Try to delete student {{ student.name|e }}? If they have an issued book, deletion will be blocked and a warning popup will appear.')">
+                            <button class="icon-button danger" title="Delete student" aria-label="Delete student">×</button>
+                        </form>
+                    </div>
+                    {% else %}
+                    <p class="empty-inline">No students added yet.</p>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+
+        <section id="issued-books" class="panel section-block">
+            <div class="section-heading">
+                <div><p class="eyebrow">CURRENT LOANS</p><h2>Issued books</h2><p class="muted">See who has borrowed each book.</p></div>
+                <span class="result-count">{{ issued_books|length }} currently issued</span>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th>Book name</th><th>Book ID</th><th>Issued to</th><th>Student ID</th><th>Issue date</th></tr></thead>
+                    <tbody>
+                    {% for book in issued_books %}
+                        {% set borrower = students|selectattr('student_id', 'equalto', book.issued_to)|first %}
+                        <tr><td><strong>{{ book.title }}</strong></td><td><span class="id-pill">{{ book.book_id }}</span></td><td>{{ borrower.name if borrower else 'Student record not found' }}</td><td><span class="id-pill">{{ book.issued_to or '—' }}</span></td><td>{{ book.issued_date or 'Not recorded' }}</td></tr>
+                    {% else %}
+                        <tr><td colspan="5" class="empty-state">No books are currently issued.</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="issue-return" class="panel section-block">
+            <div class="section-heading">
+                <div><p class="eyebrow">LENDING DESK</p><h2>Issue or return a book</h2></div>
+                <span class="date-chip">14-day loan period · ₹5/day late fee</span>
+            </div>
+            <div class="issue-grid">
+                <form class="action-card" method="POST" action="{{ url_for('issue_book') }}">
+                    <div class="action-icon issue-icon">↗</div>
+                    <h3>Issue a book</h3>
+                    <p>Assign an available book to a registered student.</p>
+                    <label>Book
+                        <select name="book_id" required>
+                            <option value="">Choose available book</option>
+                            {% for book in all_books if book.available %}
+                            <option value="{{ book.book_id }}">{{ book.book_id }} — {{ book.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                    <label>Student
+                        <select name="student_id" required>
+                            <option value="">Choose student</option>
+                            {% for student in students %}
+                            <option value="{{ student.student_id }}">{{ student.student_id }} — {{ student.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                    <button class="primary-button full-width" type="submit">Issue book</button>
+                </form>
+                <form class="action-card" id="returnBookForm" method="POST" action="{{ url_for('return_book') }}" novalidate>
+                    <div class="action-icon return-icon">↙</div>
+                    <h3>Return a book</h3>
+                    <p>Mark an issued book as returned and calculate any late fee.</p>
+                    <label>Issued book
+                        <select name="book_id" id="returnBookSelect" required>
+                            <option value="">Choose issued book</option>
+                            {% for book in all_books if not book.available %}
+                            <option value="{{ book.book_id }}" data-issued-date="{{ book.issued_date or '' }}">{{ book.book_id }} — {{ book.title }}{% if book.issued_date %} (issued {{ book.issued_date }}){% endif %}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                    <label>Original issue date
+                        <input type="date" name="issued_date_override" id="returnIssueDate" max="{{ today }}" aria-describedby="issueDateHelp">
+                        <small id="issueDateHelp" class="field-hint">Filled automatically when the issue date is saved. For older records without a date, enter the actual issue date.</small>
+                        <small class="field-error" id="issueDateError" aria-live="polite"></small>
+                    </label>
+                    <label>Return date
+                        <input type="date" name="return_date" id="returnDate" value="{{ today }}" required>
+                        <small class="field-error" id="returnDateError" aria-live="polite"></small>
+                    </label>
+                    <div class="fee-preview" id="feePreview" aria-live="polite">
+                        <strong>Loan duration: —</strong><span>Select an issued book to preview its fine.</span>
+                    </div>
+                    <div class="fee-note">Late fee: ₹5 per day after 14 days.</div>
+                    <button class="secondary-button full-width" type="submit">Return book</button>
+                </form>
+            </div>
+        </section>
+
+        <footer class="page-footer">Made for readers, organised with care. <span>PageTurn © 2026</span></footer>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Inline validation works even when browser-native validation would block submission.
+        function validateTextInput(input) {
+            const error = input.parentElement.querySelector('.field-error');
+            if (!error) return true;
+            const value = input.value.trim();
+            const name = input.name;
+            let message = '';
+            if (!value) {
+                message = name === 'author' ? 'Author name is required.' :
+                          name === 'student_id' ? 'Student ID is required.' :
+                          name === 'name' ? 'Student name is required.' :
+                          name === 'title' ? 'Book title is required.' : 'This field is required.';
+            } else if (name === 'book_id' && !/^\d+$/.test(value)) {
+                message = 'Book ID must contain numbers only.';
+            } else if (name === 'title' && !/^[\p{L}]+(?:[ '-][\p{L}]+)*$/u.test(value)) {
+                message = 'Book title must contain letters only; spaces, apostrophes and hyphens are allowed.';
+            } else if (name === 'author' || name === 'name') {
+                if (!/^[\p{L}]+(?:[ '-][\p{L}]+)*$/u.test(value)) {
+                    message = name === 'author'
+                        ? 'Author name must contain letters only; spaces, apostrophes and hyphens are allowed.'
+                        : 'Student name must contain letters only; spaces, apostrophes and hyphens are allowed.';
+                }
+            } else if (name === 'student_id' && !/^[A-Za-z0-9]+$/.test(value)) {
+                message = 'Student ID must contain letters and numbers only, without spaces or symbols.';
+            } else if (input.validity.tooShort) {
+                message = `Please enter at least ${input.minLength} characters.`;
+            }
+            error.textContent = message;
+            input.classList.toggle('input-invalid', Boolean(message));
+            return !message;
+        }
+
+        document.querySelectorAll('#addBookForm input, #addStudentForm input').forEach(input => {
+            input.addEventListener('input', () => validateTextInput(input));
+            input.addEventListener('blur', () => validateTextInput(input));
+        });
+        ['addBookForm', 'addStudentForm'].forEach(formId => {
+            const form = document.getElementById(formId);
+            form?.addEventListener('submit', event => {
+                const inputs = [...form.querySelectorAll('input[required]')];
+                const invalid = inputs.find(input => !validateTextInput(input));
+                if (invalid) {
+                    event.preventDefault();
+                    invalid.focus();
+                }
+            });
+        });
+
+        // Sequential field locking: each next field unlocks only after the previous one is valid.
+        function setupSequentialForm(formId, fieldNames, extraFields = []) {
+            const form = document.getElementById(formId);
+            if (!form) return;
+            const fields = fieldNames.map(name => form.querySelector(`[name="${name}"]`)).filter(Boolean);
+            const allFields = [...fields, ...extraFields.map(name => form.querySelector(`[name="${name}"]`)).filter(Boolean)];
+            if (!fields.length) return;
+
+            function refreshSequentialFields() {
+                let canContinue = true;
+                fields.forEach((field, index) => {
+                    field.disabled = !canContinue;
+                    if (index < fields.length - 1) {
+                        canContinue = canContinue && validateTextInput(field);
+                    }
+                });
+                // Extra fields (such as Category) unlock only when every text field is valid.
+                extraFields.forEach(name => {
+                    const field = form.querySelector(`[name="${name}"]`);
+                    if (field) field.disabled = !fields.every(item => validateTextInput(item));
+                });
+            }
+
+            fields.forEach(field => {
+                field.addEventListener('input', refreshSequentialFields);
+                field.addEventListener('change', refreshSequentialFields);
+            });
+            refreshSequentialFields();
+        }
+        setupSequentialForm('addBookForm', ['book_id', 'title', 'author'], ['category']);
+        setupSequentialForm('addStudentForm', ['student_id', 'name']);
+
+        // Return-book fine calculator. Dates are read from the selected issued-book record.
+        const returnBookSelect = document.getElementById('returnBookSelect');
+        const returnIssueDate = document.getElementById('returnIssueDate');
+        const returnDateInput = document.getElementById('returnDate');
+        const feePreview = document.getElementById('feePreview');
+        const issueDateError = document.getElementById('issueDateError');
+        const returnDateError = document.getElementById('returnDateError');
+        function updateFeePreview() {
+            const option = returnBookSelect?.selectedOptions[0];
+            const savedIssueDate = option?.dataset.issuedDate || '';
+            if (savedIssueDate) {
+                returnIssueDate.value = savedIssueDate;
+                returnIssueDate.readOnly = true;
+            } else {
+                returnIssueDate.readOnly = false;
+                if (!option?.value) returnIssueDate.value = '';
+            }
+            const issueDate = returnIssueDate.value;
+            const returnDate = returnDateInput.value;
+            issueDateError.textContent = '';
+            returnDateError.textContent = '';
+            if (!option?.value) {
+                feePreview.innerHTML = '<strong>Loan duration: —</strong><span>Select an issued book to preview its fine.</span>';
+                return;
+            }
+            if (!issueDate) {
+                feePreview.innerHTML = '<strong>Issue date required</strong><span>This older record has no saved issue date. Enter the original issue date above to calculate the fine.</span>';
+                return;
+            }
+            if (!returnDate) {
+                feePreview.innerHTML = '<strong>Return date required</strong><span>Choose the return date to calculate the fine.</span>';
+                return;
+            }
+            const issued = new Date(issueDate + 'T00:00:00');
+            const returning = new Date(returnDate + 'T00:00:00');
+            const days = Math.round((returning - issued) / 86400000);
+            if (days < 0) {
+                feePreview.innerHTML = '<strong>Invalid dates</strong><span>Return date cannot be earlier than issue date.</span>';
+                returnDateError.textContent = 'Return date cannot be earlier than issue date.';
+                return;
+            }
+            const lateDays = Math.max(0, days - 14);
+            const fee = lateDays * 5;
+            feePreview.innerHTML = `<strong>Loan duration: ${days} day${days === 1 ? '' : 's'}</strong><span>${lateDays ? `${lateDays} late day${lateDays === 1 ? '' : 's'} × ₹5 = <b>₹${fee}</b> fine` : 'No fine — within the 14-day loan period.'}</span>`;
+        }
+        returnBookSelect?.addEventListener('change', updateFeePreview);
+        returnIssueDate?.addEventListener('input', updateFeePreview);
+        returnIssueDate?.addEventListener('change', updateFeePreview);
+        returnDateInput?.addEventListener('input', updateFeePreview);
+        returnDateInput?.addEventListener('change', updateFeePreview);
+        document.getElementById('returnBookForm')?.addEventListener('submit', event => {
+            updateFeePreview();
+            const option = returnBookSelect.selectedOptions[0];
+            let invalid = false;
+            if (!option?.value) {
+                returnBookSelect.setCustomValidity('Choose an issued book first.');
+                invalid = true;
+            } else {
+                returnBookSelect.setCustomValidity('');
+            }
+            if (option?.value && !returnIssueDate.value) {
+                issueDateError.textContent = 'Enter the original issue date for this book.';
+                invalid = true;
+            }
+            if (!returnDateInput.value) {
+                returnDateError.textContent = 'Choose the return date.';
+                invalid = true;
+            } else if (returnIssueDate.value && returnDateInput.value < returnIssueDate.value) {
+                returnDateError.textContent = 'Return date cannot be earlier than issue date.';
+                invalid = true;
+            }
+            if (invalid) {
+                event.preventDefault();
+                if (!option?.value) returnBookSelect.focus();
+                else if (!returnIssueDate.value) returnIssueDate.focus();
+                else returnDateInput.focus();
+            }
+        });
+        updateFeePreview();
+
+        const returnModal = document.getElementById('returnModal');
+        const closeReturnModal = () => {
+            if (returnModal) returnModal.remove();
+            const cleanUrl = new URL(window.location.href);
+            ['returned', 'book', 'student', 'issue_date', 'return_date', 'days', 'late_days', 'fee'].forEach(key => cleanUrl.searchParams.delete(key));
+            window.history.replaceState({}, '', cleanUrl.pathname + cleanUrl.search + cleanUrl.hash);
+        };
+        document.getElementById('closeReturnModal')?.addEventListener('click', closeReturnModal);
+        document.getElementById('closeReturnModalButton')?.addEventListener('click', closeReturnModal);
+        returnModal?.addEventListener('click', event => { if (event.target === returnModal) closeReturnModal(); });
+        document.addEventListener('keydown', event => { if (event.key === 'Escape') closeReturnModal(); });
+
+        const chartData = {
+            totalBooks: {{ stats.total_books|tojson }},
+            availableBooks: {{ stats.available_books|tojson }},
+            issuedBooks: {{ stats.issued_books|tojson }},
+            totalStudents: {{ stats.total_students|tojson }}
+        };
+
+        if (window.Chart) {
+            Chart.defaults.font.family = "Inter, Arial, sans-serif";
+            Chart.defaults.color = "#777b90";
+
+            new Chart(document.getElementById("overviewChart"), {
+                type: "bar",
+                data: {
+                    labels: ["Total books", "Available", "Issued", "Students"],
+                    datasets: [{
+                        label: "Count",
+                        data: [chartData.totalBooks, chartData.availableBooks, chartData.issuedBooks, chartData.totalStudents],
+                        backgroundColor: ["#8b7cf6", "#48b894", "#f2a65a", "#65a5e8"],
+                        borderRadius: 8,
+                        borderSkipped: false,
+                        maxBarThickness: 58
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, ticks: { precision: 0 }, grid: { color: "#f0f0f6" } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+
+            new Chart(document.getElementById("availabilityChart"), {
+                type: "doughnut",
+                data: {
+                    labels: ["Available", "Issued"],
+                    datasets: [{
+                        data: [chartData.availableBooks, chartData.issuedBooks],
+                        backgroundColor: ["#48b894", "#f2a65a"],
+                        borderWidth: 0,
+                        hoverOffset: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: "70%",
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        const themeToggle = document.getElementById("themeToggle");
+        function updateThemeButton() {
+            const isDark = document.documentElement.dataset.theme === "dark";
+            themeToggle.textContent = isDark ? "☀️ Light mode" : "🌙 Dark mode";
+        }
+        updateThemeButton();
+        themeToggle.addEventListener("click", () => {
+            const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+            document.documentElement.dataset.theme = nextTheme;
+            localStorage.setItem("pageturn-theme", nextTheme);
+            updateThemeButton();
+        });
+
+        const flashErrors = Array.from(document.querySelectorAll(".flash.error")).map(el => el.textContent.trim());
+        if (flashErrors.length) {
+            // Popup warning for blocked deletions and other errors; the page banner remains available too.
+            window.setTimeout(() => alert(flashErrors.join("\n\n")), 100);
+        }
+
+        const navLinks = document.querySelectorAll(".nav-link");
+        navLinks.forEach(link => {
+            link.addEventListener("click", () => {
+                navLinks.forEach(item => item.classList.remove("active"));
+                link.classList.add("active");
+            });
+        });
+    </script>
+</body>
+</html>

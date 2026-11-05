@@ -1,0 +1,1064 @@
+{
+    "books": [
+        {
+            "book_id": "001",
+            "title": "Marvel",
+            "author": "Stan Lee",
+            "category": "Science Fiction",
+            "available": false,
+            "issued_count": 2,
+            "issued_to": "016",
+            "issued_date": "2026-10-11"
+        },
+        {
+            "book_id": "002",
+            "title": "DC",
+            "author": "Various Authors",
+            "category": "Science Fiction",
+            "available": false,
+            "issued_count": 1,
+            "issued_to": "020",
+            "issued_date": "2026-10-11"
+        },
+        {
+            "book_id": "003",
+            "title": "A Brief History of Time",
+            "author": "Stephen Hawking",
+            "category": "Science",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "004",
+            "title": "The Selfish Gene",
+            "author": "Richard Dawkins",
+            "category": "Science",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "005",
+            "title": "Cosmos",
+            "author": "Carl Sagan",
+            "category": "Science",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "006",
+            "title": "The Origin of Species",
+            "author": "Charles Darwin",
+            "category": "Science",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "007",
+            "title": "The Elegant Universe",
+            "author": "Brian Greene",
+            "category": "Science",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "008",
+            "title": "Astrophysics for People in a Hurry",
+            "author": "Neil deGrasse Tyson",
+            "category": "Science",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "009",
+            "title": "The Gene",
+            "author": "Siddhartha Mukherjee",
+            "category": "Science",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "010",
+            "title": "Silent Spring",
+            "author": "Rachel Carson",
+            "category": "Science",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "011",
+            "title": "The Body",
+            "author": "Bill Bryson",
+            "category": "Science",
+            "available": true,
+            "issued_count": 1,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "012",
+            "title": "The Hidden Life of Trees",
+            "author": "Peter Wohlleben",
+            "category": "Science",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "013",
+            "title": "The Immortal Life of Henrietta Lacks",
+            "author": "Rebecca Skloot",
+            "category": "Science",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "014",
+            "title": "The Cartoon Guide to Physics",
+            "author": "Larry Gonick",
+            "category": "Science",
+            "available": false,
+            "issued_count": 1,
+            "issued_to": "015",
+            "issued_date": "2026-10-11"
+        },
+        {
+            "book_id": "015",
+            "title": "The Magic of Reality",
+            "author": "Richard Dawkins",
+            "category": "Science",
+            "available": false,
+            "issued_count": 1,
+            "issued_to": "018",
+            "issued_date": "2026-10-11"
+        },
+        {
+            "book_id": "016",
+            "title": "The Art Book",
+            "author": "Phaidon Editors",
+            "category": "Arts",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "017",
+            "title": "Ways of Seeing",
+            "author": "John Berger",
+            "category": "Arts",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "018",
+            "title": "The Story of Art",
+            "author": "E. H. Gombrich",
+            "category": "Arts",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "019",
+            "title": "Steal Like an Artist",
+            "author": "Austin Kleon",
+            "category": "Arts",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "020",
+            "title": "The Design of Everyday Things",
+            "author": "Don Norman",
+            "category": "Arts",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "021",
+            "title": "Understanding Comics",
+            "author": "Scott McCloud",
+            "category": "Arts",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "022",
+            "title": "The Elements of Style",
+            "author": "William Strunk Jr.",
+            "category": "Arts",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "023",
+            "title": "The Creative Act",
+            "author": "Rick Rubin",
+            "category": "Arts",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "024",
+            "title": "The Complete Guide to Drawing",
+            "author": "Giovanni Civardi",
+            "category": "Arts",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "025",
+            "title": "Color and Light",
+            "author": "James Gurney",
+            "category": "Arts",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "026",
+            "title": "Dune",
+            "author": "Frank Herbert",
+            "category": "Science Fiction",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "027",
+            "title": "Foundation",
+            "author": "Isaac Asimov",
+            "category": "Science Fiction",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "028",
+            "title": "I, Robot",
+            "author": "Isaac Asimov",
+            "category": "Science Fiction",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "029",
+            "title": "The Martian",
+            "author": "Andy Weir",
+            "category": "Science Fiction",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "030",
+            "title": "Project Hail Mary",
+            "author": "Andy Weir",
+            "category": "Science Fiction",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "031",
+            "title": "Ender's Game",
+            "author": "Orson Scott Card",
+            "category": "Science Fiction",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "032",
+            "title": "Fahrenheit 451",
+            "author": "Ray Bradbury",
+            "category": "Science Fiction",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "033",
+            "title": "Brave New World",
+            "author": "Aldous Huxley",
+            "category": "Science Fiction",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "034",
+            "title": "Do Androids Dream of Electric Sheep?",
+            "author": "Philip K. Dick",
+            "category": "Science Fiction",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "035",
+            "title": "The Time Machine",
+            "author": "H. G. Wells",
+            "category": "Science Fiction",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "036",
+            "title": "The War of the Worlds",
+            "author": "H. G. Wells",
+            "category": "Science Fiction",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "037",
+            "title": "The Left Hand of Darkness",
+            "author": "Ursula K. Le Guin",
+            "category": "Science Fiction",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "038",
+            "title": "The Little Prince",
+            "author": "Antoine de Saint-Exupéry",
+            "category": "Fairy Tale",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "039",
+            "title": "Cinderella",
+            "author": "Charles Perrault",
+            "category": "Fairy Tale",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "040",
+            "title": "Snow White",
+            "author": "Brothers Grimm",
+            "category": "Fairy Tale",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "041",
+            "title": "The Little Mermaid",
+            "author": "Hans Christian Andersen",
+            "category": "Fairy Tale",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "042",
+            "title": "The Ugly Duckling",
+            "author": "Hans Christian Andersen",
+            "category": "Fairy Tale",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "043",
+            "title": "Hansel and Gretel",
+            "author": "Brothers Grimm",
+            "category": "Fairy Tale",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "044",
+            "title": "Rapunzel",
+            "author": "Brothers Grimm",
+            "category": "Fairy Tale",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "045",
+            "title": "The Princess and the Pea",
+            "author": "Hans Christian Andersen",
+            "category": "Fairy Tale",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "046",
+            "title": "The Wonderful Wizard of Oz",
+            "author": "L. Frank Baum",
+            "category": "Fairy Tale",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "047",
+            "title": "Alice's Adventures in Wonderland",
+            "author": "Lewis Carroll",
+            "category": "Fairy Tale",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "048",
+            "title": "The Turn of the Screw",
+            "author": "Henry James",
+            "category": "Horror",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "049",
+            "title": "Dracula",
+            "author": "Bram Stoker",
+            "category": "Horror",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "050",
+            "title": "Frankenstein",
+            "author": "Mary Shelley",
+            "category": "Horror",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "051",
+            "title": "The Shining",
+            "author": "Stephen King",
+            "category": "Horror",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "052",
+            "title": "Pet Sematary",
+            "author": "Stephen King",
+            "category": "Horror",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "053",
+            "title": "The Haunting of Hill House",
+            "author": "Shirley Jackson",
+            "category": "Horror",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "054",
+            "title": "The Exorcist",
+            "author": "William Peter Blatty",
+            "category": "Horror",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "055",
+            "title": "The Picture of Dorian Gray",
+            "author": "Oscar Wilde",
+            "category": "Horror",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "056",
+            "title": "The Call of Cthulhu",
+            "author": "H. P. Lovecraft",
+            "category": "Horror",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "057",
+            "title": "Coraline",
+            "author": "Neil Gaiman",
+            "category": "Horror",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "058",
+            "title": "Murder on the Orient Express",
+            "author": "Agatha Christie",
+            "category": "Mystery",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "059",
+            "title": "The Hound of the Baskervilles",
+            "author": "Arthur Conan Doyle",
+            "category": "Mystery",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "060",
+            "title": "The Girl with the Dragon Tattoo",
+            "author": "Stieg Larsson",
+            "category": "Mystery",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "061",
+            "title": "Gone Girl",
+            "author": "Gillian Flynn",
+            "category": "Mystery",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "062",
+            "title": "The Da Vinci Code",
+            "author": "Dan Brown",
+            "category": "Mystery",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "063",
+            "title": "And Then There Were None",
+            "author": "Agatha Christie",
+            "category": "Mystery",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "064",
+            "title": "The Maltese Falcon",
+            "author": "Dashiell Hammett",
+            "category": "Mystery",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "065",
+            "title": "The Big Sleep",
+            "author": "Raymond Chandler",
+            "category": "Mystery",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "066",
+            "title": "The Moonstone",
+            "author": "Wilkie Collins",
+            "category": "Mystery",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "067",
+            "title": "The No. 1 Ladies' Detective Agency",
+            "author": "Alexander McCall Smith",
+            "category": "Mystery",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "068",
+            "title": "Sapiens",
+            "author": "Yuval Noah Harari",
+            "category": "History",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "069",
+            "title": "Guns, Germs, and Steel",
+            "author": "Jared Diamond",
+            "category": "History",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "070",
+            "title": "The Diary of a Young Girl",
+            "author": "Anne Frank",
+            "category": "History",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "071",
+            "title": "India After Gandhi",
+            "author": "Ramachandra Guha",
+            "category": "History",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "072",
+            "title": "The Silk Roads",
+            "author": "Peter Frankopan",
+            "category": "History",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "073",
+            "title": "A People's History of the United States",
+            "author": "Howard Zinn",
+            "category": "History",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "074",
+            "title": "The Wright Brothers",
+            "author": "David McCullough",
+            "category": "History",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "075",
+            "title": "The Rise and Fall of the Third Reich",
+            "author": "William L. Shirer",
+            "category": "History",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "076",
+            "title": "The Discovery of India",
+            "author": "Jawaharlal Nehru",
+            "category": "History",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "077",
+            "title": "The Emperor of All Maladies",
+            "author": "Siddhartha Mukherjee",
+            "category": "History",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "078",
+            "title": "Clean Code",
+            "author": "Robert C. Martin",
+            "category": "Technology",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "079",
+            "title": "The Pragmatic Programmer",
+            "author": "Andrew Hunt and David Thomas",
+            "category": "Technology",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "080",
+            "title": "Introduction to Algorithms",
+            "author": "Thomas H. Cormen",
+            "category": "Technology",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "081",
+            "title": "Python Crash Course",
+            "author": "Eric Matthes",
+            "category": "Technology",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "082",
+            "title": "Eloquent JavaScript",
+            "author": "Marijn Haverbeke",
+            "category": "Technology",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "083",
+            "title": "Computer Networking: A Top-Down Approach",
+            "author": "James Kurose and Keith Ross",
+            "category": "Technology",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "084",
+            "title": "Artificial Intelligence: A Modern Approach",
+            "author": "Stuart Russell and Peter Norvig",
+            "category": "Technology",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "085",
+            "title": "The Innovators",
+            "author": "Walter Isaacson",
+            "category": "Technology",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "086",
+            "title": "Code",
+            "author": "Charles Petzold",
+            "category": "Technology",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "087",
+            "title": "Design Patterns",
+            "author": "Erich Gamma and others",
+            "category": "Technology",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "088",
+            "title": "The Hobbit",
+            "author": "J. R. R. Tolkien",
+            "category": "Fantasy",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "089",
+            "title": "The Fellowship of the Ring",
+            "author": "J. R. R. Tolkien",
+            "category": "Fantasy",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "090",
+            "title": "A Game of Thrones",
+            "author": "George R. R. Martin",
+            "category": "Fantasy",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "091",
+            "title": "The Name of the Wind",
+            "author": "Patrick Rothfuss",
+            "category": "Fantasy",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "092",
+            "title": "The Golden Compass",
+            "author": "Philip Pullman",
+            "category": "Fantasy",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "093",
+            "title": "The Chronicles of Narnia",
+            "author": "C. S. Lewis",
+            "category": "Fantasy",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "094",
+            "title": "Harry Potter and the Philosopher's Stone",
+            "author": "J. K. Rowling",
+            "category": "Fantasy",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "095",
+            "title": "The Neverending Story",
+            "author": "Michael Ende",
+            "category": "Fantasy",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "096",
+            "title": "The Once and Future King",
+            "author": "T. H. White",
+            "category": "Fantasy",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "097",
+            "title": "The Earthsea Cycle",
+            "author": "Ursula K. Le Guin",
+            "category": "Fantasy",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "098",
+            "title": "Treasure Island",
+            "author": "Robert Louis Stevenson",
+            "category": "Adventure",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "099",
+            "title": "The Call of the Wild",
+            "author": "Jack London",
+            "category": "Adventure",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "100",
+            "title": "Around the World in Eighty Days",
+            "author": "Jules Verne",
+            "category": "Adventure",
+            "available": true,
+            "issued_count": 0,
+            "issued_to": "",
+            "issued_date": null
+        },
+        {
+            "book_id": "101",
+            "title": "MATHS",
+            "author": "KC DAS",
+            "category": "Science",
+            "available": false,
+            "issued_count": 1,
+            "issued_to": "015",
+            "issued_date": "2026-10-11"
+        }
+    ],
+    "students": [
+        {
+            "student_id": "016",
+            "name": "ABHISHEK BISWAS"
+        },
+        {
+            "student_id": "015",
+            "name": "Esita Hatua"
+        },
+        {
+            "student_id": "012",
+            "name": "Kaushik Das"
+        },
+        {
+            "student_id": "013",
+            "name": "Mrinal Kanti Das"
+        },
+        {
+            "student_id": "014",
+            "name": "Shiya Shaw"
+        },
+        {
+            "student_id": "019",
+            "name": "Trisha Biswas"
+        },
+        {
+            "student_id": "040",
+            "name": "Partha Biswas"
+        },
+        {
+            "student_id": "017",
+            "name": "Alapan Chatterjee"
+        },
+        {
+            "student_id": "018",
+            "name": "Sinjan Chatterjee"
+        },
+        {
+            "student_id": "019",
+            "name": "Peter Parker"
+        },
+        {
+            "student_id": "020",
+            "name": "Bruce Wayne"
+        },
+        {
+            "student_id": "40",
+            "name": "Bruce Banner"
+        }
+    ]
+}
